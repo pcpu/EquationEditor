@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>可交互数学公式编辑器</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="https://unpkg.com/mathlive?module"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div>
+          <h1>MathType / AxMath 风格网页公式编辑器</h1>
+          <p>
+            基于 MathLive 交互编辑内核 + LaTeX 双向转换，支持可视化编辑、快捷工具栏、历史记录、即时预览。
+          </p>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="panel editor-panel">
+          <div class="panel-title-row">
+            <h2>可交互可视化编辑区</h2>
+            <div class="actions">
+              <button id="undoBtn" type="button">撤销</button>
+              <button id="redoBtn" type="button">重做</button>
+              <button id="clearBtn" type="button" class="danger">清空</button>
+            </div>
+          </div>
+
+          <div class="toolbar" id="symbolToolbar">
+            <button data-insert="\\frac{#?}{#?}" title="分数">分数</button>
+            <button data-insert="\\sqrt{#?}" title="根号">√</button>
+            <button data-insert="x^{#?}" title="上标">xⁿ</button>
+            <button data-insert="x_{#?}" title="下标">xₙ</button>
+            <button data-insert="\\sum_{#?}^{#?}" title="求和">∑</button>
+            <button data-insert="\\int_{#?}^{#?}" title="积分">∫</button>
+            <button data-insert="\\lim_{#?\\to#?}" title="极限">lim</button>
+            <button data-insert="\\begin{matrix}#? & #?\\\\#? & #?\\end{matrix}" title="矩阵">矩阵</button>
+            <button data-insert="\\left(#?\\right)" title="括号">( )</button>
+            <button data-insert="\\alpha" title="alpha">α</button>
+            <button data-insert="\\beta" title="beta">β</button>
+            <button data-insert="\\pi" title="pi">π</button>
+          </div>
+
+          <math-field
+            id="formulaField"
+            class="math-field"
+            virtual-keyboard-mode="manual"
+            smart-mode="true"
+          ></math-field>
+
+          <div class="panel-footer">
+            <span id="status">就绪</span>
+            <button id="toggleKeyboardBtn" type="button">显示虚拟数学键盘</button>
+          </div>
+        </section>
+
+        <section class="panel latex-panel">
+          <h2>LaTeX 双向转换</h2>
+          <label for="latexInput">LaTeX（可编辑）</label>
+          <textarea
+            id="latexInput"
+            spellcheck="false"
+            placeholder="在这里输入或粘贴 LaTeX，点击“导入到可视化编辑区”即可转为可交互公式..."
+          ></textarea>
+
+          <div class="actions wrap">
+            <button id="importLatexBtn" type="button">导入到可视化编辑区</button>
+            <button id="exportLatexBtn" type="button">从编辑区导出 LaTeX</button>
+            <button id="copyLatexBtn" type="button">复制 LaTeX</button>
+          </div>
+
+          <h3>渲染预览（KaTeX）</h3>
+          <div id="katexPreview" class="katex-preview"></div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
